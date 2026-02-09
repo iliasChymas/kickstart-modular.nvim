@@ -59,6 +59,15 @@ return {
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
+
+      vim.diagnostic.config {
+        virtual_text = false, -- no inline error text
+        signs = true, -- show gutter symbol
+        underline = true, -- optional: underline error
+        update_in_insert = false, -- don't update while typing
+        severity_sort = true,
+      }
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -212,6 +221,7 @@ return {
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
+        jdtls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:

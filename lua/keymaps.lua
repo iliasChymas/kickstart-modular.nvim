@@ -51,4 +51,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+
 -- vim: ts=2 sts=2 sw=2 et
+
+diagnostics_errors_only = true;
+
+toggle_diagnostics = function ()
+  diagnostics_errors_only = not diagnostics_errors_only
+
+  vim.diagnostic.config({
+    virtual_text = diagnostics_errors_only and {
+      severity = vim.diagnostic.severity.ERROR,
+    } or true,
+
+    signs = diagnostics_errors_only and {
+      severity = vim.diagnostic.severity.ERROR,
+    } or true,
+
+    underline = diagnostics_errors_only and {
+      severity = vim.diagnostic.severity.ERROR,
+    } or true,
+  })
+end;
+
+vim.keymap.set("n", "<leader>de", toggle_diagnostics, { desc = "Toggle diagnostics (errors only)" })
+
